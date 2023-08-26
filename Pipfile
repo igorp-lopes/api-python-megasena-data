@@ -6,6 +6,12 @@ name = "pypi"
 [packages]
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+apscheduler = "*"
+dependency-injector = "*"
+httpx = "*"
+playwright = "*"
+pandas = "*"
+openpyxl = "*"
 
 [dev-packages]
 
