@@ -12,6 +12,7 @@ httpx = "*"
 playwright = "*"
 pandas = "*"
 openpyxl = "*"
+pydantic = "*"
 
 [dev-packages]
 
