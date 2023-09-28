@@ -1,9 +1,8 @@
-from abc import ABC, abstractmethod
+from typing import Protocol
 
 
-class MegaSenaRecordRepositoryPort(ABC):
+class MegaSenaRecordRepositoryPort(Protocol):
 
-    @abstractmethod
     def save_record(self, mega_sena_record):
         ...
 
