@@ -21,8 +21,8 @@ class MegaSenaRecordRepositoryPort(Protocol):
     # async def update_many_records(self, mega_sena_records):
     #     ...
 
-    async def get_record_by_date(self):
+    async def get_record_by_date(self, date):
         ...
 
-    async def get_many_records_by_date_interval(self, date_interval):
+    async def get_many_records_by_date_interval(self, start_date, end_date):
         ...

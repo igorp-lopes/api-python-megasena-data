@@ -1,8 +1,9 @@
+from datetime import datetime
 from typing import Iterable, List
 
 from sqlalchemy.ext.asyncio import AsyncEngine
 from sqlalchemy.orm import sessionmaker
-from sqlmodel import select
+from sqlmodel import select, col
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from src.app.adapters.sqlmodel.entities.mega_sena_data import SqlModelMegaSenaData
@@ -34,6 +35,16 @@ class MegaSenaDataRepository(MegaSenaRecordRepositoryPort):
 
     async def get_many_records_by_id(self, ids: List[int]):
         async with self.session() as session:
-            records = await session.scalars(select(SqlModelMegaSenaData).where(SqlModelMegaSenaData.concurso.in_(ids)))
+            records = await session.scalars(select(SqlModelMegaSenaData).where(col(SqlModelMegaSenaData.concurso).in_(ids)))
+            return records
+
+    async def get_record_by_date(self, date: datetime):
+        async with self.session() as session:
+            record = await session.scalars(select(SqlModelMegaSenaData).where(SqlModelMegaSenaData.data_do_sorteio == date))
+            return record
+
+    async def get_many_records_by_date_interval(self, start_date: datetime, end_date: datetime):
+        async with self.session() as session:
+            records = await session.scalars(select(SqlModelMegaSenaData).where(col(SqlModelMegaSenaData.data_do_sorteio).between(start_date, end_date)))
             return records
 
