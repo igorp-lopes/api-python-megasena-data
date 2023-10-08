@@ -1,7 +1,8 @@
-from typing import Iterable
+from typing import Iterable, List
 
 from sqlalchemy.ext.asyncio import AsyncEngine
 from sqlalchemy.orm import sessionmaker
+from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from src.app.adapters.sqlmodel.entities.mega_sena_data import SqlModelMegaSenaData
@@ -11,7 +12,6 @@ from src.app.ports.mega_sena_record_repository_port import MegaSenaRecordReposit
 class MegaSenaDataRepository(MegaSenaRecordRepositoryPort):
     def __init__(self, engine: AsyncEngine):
         self.session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
-
 
     async def save_record(self, mega_sena_record: SqlModelMegaSenaData):
         async with self.session() as session:
@@ -26,3 +26,14 @@ class MegaSenaDataRepository(MegaSenaRecordRepositoryPort):
             await session.commit()
             await session.refresh(mega_sena_records)
             return mega_sena_records
+
+    async def get_record_by_id(self, id: int):
+        async with self.session() as session:
+            record = await session.scalars(select(SqlModelMegaSenaData).where(SqlModelMegaSenaData.concurso == id))
+            return record
+
+    async def get_many_records_by_id(self, ids: List[int]):
+        async with self.session() as session:
+            records = await session.scalars(select(SqlModelMegaSenaData).where(SqlModelMegaSenaData.concurso.in_(ids)))
+            return records
+
