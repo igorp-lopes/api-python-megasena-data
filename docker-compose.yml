@@ -2,10 +2,12 @@ version: '3'
 
 services:
   database:
+    container_name: mega-sena-data-api-postgres
     image: 'postgres:16'
     ports:
       - "15432:5432"
     env_file:
       - .env
     volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./.db-data/:/var/lib/postgresql/data/
