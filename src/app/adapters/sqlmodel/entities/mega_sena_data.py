@@ -6,7 +6,6 @@ from src.app.adapters.sqlmodel.entities.base_entity import SqlModelBaseEntity
 
 
 class SqlModelMegaSenaData(SqlModelBaseEntity, table=True):
-
     concurso: int = Field(default=None, primary_key=True)
     data_do_sorteio: datetime
     bola1: int
@@ -16,7 +15,7 @@ class SqlModelMegaSenaData(SqlModelBaseEntity, table=True):
     bola5: int
     bola6: int
     ganhadores_6_acertos: int
-    cidade_UF: str
+    cidade_UF: Optional[str]
     rateio_6_acertos: str
     ganhadores_5_acertos: int
     rateio_5_acertos: str

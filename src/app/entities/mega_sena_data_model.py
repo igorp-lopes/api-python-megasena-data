@@ -14,7 +14,7 @@ class MegaSenaData(BaseModel):
     bola5: int
     bola6: int
     ganhadores_6_acertos: int
-    cidade_UF: str
+    cidade_UF: Optional[str]
     rateio_6_acertos: str
     ganhadores_5_acertos: int
     rateio_5_acertos: str
