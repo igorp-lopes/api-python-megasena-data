@@ -21,7 +21,9 @@ class MegaSenaDataRepository(MegaSenaRecordRepositoryPort):
             await session.refresh(mega_sena_record)
             return mega_sena_record
 
-    async def save_many_records(self, mega_sena_records: Iterable[SqlModelMegaSenaData]):
+    async def save_many_records(
+        self, mega_sena_records: Iterable[SqlModelMegaSenaData]
+    ):
         async with self.session() as session:
             session.add_all(mega_sena_records)
             await session.commit()
@@ -30,21 +32,38 @@ class MegaSenaDataRepository(MegaSenaRecordRepositoryPort):
 
     async def get_record_by_id(self, id: int):
         async with self.session() as session:
-            record = await session.scalars(select(SqlModelMegaSenaData).where(SqlModelMegaSenaData.concurso == id))
+            record = await session.scalars(
+                select(SqlModelMegaSenaData).where(SqlModelMegaSenaData.concurso == id)
+            )
             return record
 
     async def get_many_records_by_id(self, ids: List[int]):
         async with self.session() as session:
-            records = await session.scalars(select(SqlModelMegaSenaData).where(col(SqlModelMegaSenaData.concurso).in_(ids)))
+            records = await session.scalars(
+                select(SqlModelMegaSenaData).where(
+                    col(SqlModelMegaSenaData.concurso).in_(ids)
+                )
+            )
             return records
 
     async def get_record_by_date(self, date: datetime):
         async with self.session() as session:
-            record = await session.scalars(select(SqlModelMegaSenaData).where(SqlModelMegaSenaData.data_do_sorteio == date))
+            record = await session.scalars(
+                select(SqlModelMegaSenaData).where(
+                    SqlModelMegaSenaData.data_do_sorteio == date
+                )
+            )
             return record
 
-    async def get_many_records_by_date_interval(self, start_date: datetime, end_date: datetime):
+    async def get_many_records_by_date_interval(
+        self, start_date: datetime, end_date: datetime
+    ):
         async with self.session() as session:
-            records = await session.scalars(select(SqlModelMegaSenaData).where(col(SqlModelMegaSenaData.data_do_sorteio).between(start_date, end_date)))
+            records = await session.scalars(
+                select(SqlModelMegaSenaData).where(
+                    col(SqlModelMegaSenaData.data_do_sorteio).between(
+                        start_date, end_date
+                    )
+                )
+            )
             return records
-
