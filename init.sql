@@ -1,28 +1,26 @@
-CREATE USER docker;
-
-CREATE DATABASE postgres;
-
-CREATE TABLE megasena_data (
-                               concurso SERIAL PRIMARY KEY,
-                               data_do_sorteio TIMESTAMP NOT NULL,
-                               bola1 INT NOT NULL,
-                               bola2 INT NOT NULL,
-                               bola3 INT NOT NULL,
-                               bola4 INT NOT NULL,
-                               bola5 INT NOT NULL,
-                               bola6 INT NOT NULL,
-                               ganhadores_6_acertos INT NOT NULL,
-                               cidade_UF TEXT,
-                               rateio_6_acertos TEXT NOT NULL,
-                               ganhadores_5_acertos INT NOT NULL,
-                               rateio_5_acertos TEXT NOT NULL,
-                               ganhadores_4_acertos INT NOT NULL,
-                               rateio_4_acertos TEXT NOT NULL,
-                               acumulado_6_acertos TEXT NOT NULL,
-                               arrecadacao_total TEXT NOT NULL,
-                               estimativa_premio TEXT NOT NULL,
-                               acumulado_sorteio_especial_mega_da_virada TEXT NOT NULL,
-                               observacao TEXT
+CREATE TABLE IF NOT EXISTS mega_sena_records (
+                                   id SERIAL NOT NULL,
+                                   created_at TIMESTAMP DEFAULT current_timestamp,
+                                   updated_at TIMESTAMP DEFAULT current_timestamp,
+                                   concurso INTEGER,
+                                   data_do_sorteio DATE,
+                                   bola1 INTEGER,
+                                   bola2 INTEGER,
+                                   bola3 INTEGER,
+                                   bola4 INTEGER,
+                                   bola5 INTEGER,
+                                   bola6 INTEGER,
+                                   ganhadores_6_acertos INTEGER,
+                                   cidade_UF VARCHAR,
+                                   rateio_6_acertos VARCHAR,
+                                   ganhadores_5_acertos INTEGER,
+                                   rateio_5_acertos VARCHAR,
+                                   ganhadores_4_acertos INTEGER,
+                                   rateio_4_acertos VARCHAR,
+                                   acumulado_6_acertos VARCHAR,
+                                   arrecadacao_total VARCHAR,
+                                   estimativa_premio VARCHAR,
+                                   acumulado_sorteio_especial_mega_da_virada VARCHAR,
+                                   observacao VARCHAR,
+                                   PRIMARY KEY (id)
 );
-
-GRANT ALL PRIVILEGES ON DATABASE postgres TO docker;

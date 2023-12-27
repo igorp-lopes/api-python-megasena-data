@@ -1,12 +1,14 @@
-from datetime import datetime
+from datetime import date
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class MegaSenaData(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     concurso: int
-    data_do_sorteio: datetime
+    data_do_sorteio: date
     bola1: int
     bola2: int
     bola3: int
@@ -14,7 +16,7 @@ class MegaSenaData(BaseModel):
     bola5: int
     bola6: int
     ganhadores_6_acertos: int
-    cidade_UF: Optional[str]
+    cidade_uf: Optional[str] = None
     rateio_6_acertos: str
     ganhadores_5_acertos: int
     rateio_5_acertos: str
@@ -24,4 +26,4 @@ class MegaSenaData(BaseModel):
     arrecadacao_total: str
     estimativa_premio: str
     acumulado_sorteio_especial_mega_da_virada: str
-    observacao: Optional[str]
+    observacao: Optional[str] = None
