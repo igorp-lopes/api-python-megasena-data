@@ -9,9 +9,9 @@ class MegaSenaDataService:
         self.mega_sena_data_repository = mega_sena_data_repository
 
     async def _save_mega_sena_record(self, mega_sena_record: MegaSenaData):
-        return self.mega_sena_data_repository.save_record(mega_sena_record)
+        return await self.mega_sena_data_repository.save_record(mega_sena_record)
 
     async def _save_many_mega_sena_records(
         self, mega_sena_records: Iterable[MegaSenaData]
     ):
-        return self.mega_sena_data_repository.save_many_records(mega_sena_records)
+        return await self.mega_sena_data_repository.save_many_records(mega_sena_records)
