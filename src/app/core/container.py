@@ -13,13 +13,20 @@ from src.app.services.mega_sena_scrapper_service import MegaSenaScrapperService
 
 class Container(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(
-        modules=["src.app.controllers.health_controller", "src.cron_job.test_cron"]
+        modules=[
+            "src.app.controllers.health_controller",
+            "src.app.controllers.mega_sena_data_controller",
+            "src.cron_job.test_cron",
+        ]
     )
 
-    session_factory = providers.Singleton(SqlAlchemySessionFactory, db_url=DATABASE_URL)
+    sql_alchemy_session_factory = providers.Singleton(
+        SqlAlchemySessionFactory, db_url=DATABASE_URL
+    )
 
     mega_sena_record_repository = providers.Factory(
-        MegaSenaRecordRepository, session_factory=session_factory.provided.session
+        MegaSenaRecordRepository,
+        session_factory=sql_alchemy_session_factory.provided.session,
     )
 
     mega_sena_data_service = providers.Factory(
